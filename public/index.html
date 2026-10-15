@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pet Care Veterinary</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div>
+            <h1>🐾 Pet Care Veterinary</h1>
+            <p>Pet Health & Veterinary Management System</p>
+        </div>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+
+    <section class="dashboard">
+        <h2>Veterinary Dashboard</h2>
+        <p>Manage your veterinary services easily.</p>
+
+        <div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>👤 Owners</h3>
+        <p id="totalOwners">0</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>🐾 Pets</h3>
+        <p id="totalPets">0</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>💊 Treatments</h3>
+        <p id="totalTreatments">0</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>📅 Appointments</h3>
+        <p id="totalAppointments">0</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>💉 Vaccinations</h3>
+        <p id="totalVaccinations">0</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>💳 Payments</h3>
+        <p id="totalPayments">0</p>
+    </div>
+
+</div>
+
+        <div class="module-grid">
+
+            <div class="module-card">
+                <h3>👤 Owners</h3>
+                <p>Manage pet owner information.</p>
+                <button onclick="document.querySelector('.owner-section').scrollIntoView({behavior:'smooth'})">View Owners</button>
+            </div>
+
+            <div class="module-card">
+                <h3>🐾 Pets</h3>
+                <p>Manage registered pets.</p>
+                <button onclick="document.querySelector('.pet-section').scrollIntoView({behavior:'smooth'})">View Pets</button>
+            </div>
+
+            <div class="module-card">
+                <h3>💊 Treatments</h3>
+                <p>Manage pet treatments and medical records.</p>
+                <button onclick="document.querySelector('.treatment-section').scrollIntoView({behavior:'smooth'})">View Treatments</button>
+            </div>
+
+            <div class="module-card">
+                <h3>📅 Appointments</h3>
+                <p>Manage veterinary appointments.</p>
+                <button onclick="document.querySelector('.appointment-section').scrollIntoView({behavior:'smooth'})">View Appointments</button>
+            </div>
+
+            <div class="module-card">
+                <h3>📋 Medical Reports</h3>
+                <p>View pet medical history reports.</p>
+                <button onclick="window.location.href='/medical-report.html'">View Reports</button>
+            </div>
+
+            <div class="module-card">
+                <h3>💉 Vaccinations</h3>
+                <p>Manage pet vaccination records.</p>
+                <button onclick="document.querySelector('.vaccination-section').scrollIntoView({behavior:'smooth'})">View Vaccinations</button>
+            </div>
+
+            <div class="module-card">
+                <h3>💳 Payments</h3>
+                <p>Manage payment records.</p>
+                <button onclick="document.querySelector('#paymentSection').scrollIntoView({behavior:'smooth'})">View Payments</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Owner Add -->
+    <section class="owner-section">
+
+    <h2>Add New Owner</h2>
+
+    <form id="ownerForm">
+
+        <div class="form-group">
+            <label for="ownerName">Owner Name</label>
+            <input type="text" id="ownerName" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="ownerPhone">Phone</label>
+            <input type="text" id="ownerPhone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="ownerEmail">Email</label>
+            <input type="email" id="ownerEmail" name="email">
+        </div>
+
+        <div class="form-group">
+            <label for="ownerAddress">Address</label>
+            <input type="text" id="ownerAddress" name="address">
+        </div>
+
+        <button type="submit">Add Owner</button>
+
+    </form>
+
+    <p id="ownerMessage"></p>
+
+    </section>
+
+    <!-- Registered Owners -->
+    <section class="owner-list-section">
+
+    <h2>Registered Owners</h2>
+
+    <div class="search-box">
+        <input type="text" id="ownerSearch" placeholder="Search owners...">
+    </div>
+
+    <table id="ownerTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="ownerTableBody"></tbody>
+    </table>
+
+    </section>
+
+    <!-- Edit Owner (hidden) -->
+    <section class="owner-edit-section" id="editOwnerSection" style="display: none;">
+
+    <h2>Edit Owner</h2>
+
+    <form id="editOwnerForm">
+
+        <input type="hidden" id="editOwnerId">
+
+        <div class="form-group">
+            <label for="editOwnerName">Owner Name</label>
+            <input type="text" id="editOwnerName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editOwnerPhone">Phone</label>
+            <input type="text" id="editOwnerPhone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editOwnerEmail">Email</label>
+            <input type="email" id="editOwnerEmail">
+        </div>
+
+        <div class="form-group">
+            <label for="editOwnerAddress">Address</label>
+            <input type="text" id="editOwnerAddress">
+        </div>
+
+        <button type="submit">Update Owner</button>
+
+    </form>
+
+    <p id="editOwnerMessage"></p>
+
+    </section>
+
+    <!-- Pet Add -->
+    <section class="pet-section">
+
+    <h2>Add New Pet</h2>
+
+    <form id="petForm">
+
+        <div class="form-group">
+            <label for="petOwner">Owner</label>
+            <select id="petOwner" required>
+                <option value="">Select Owner</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="petName">Pet Name</label>
+            <input type="text" id="petName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="petSpecies">Species</label>
+            <select id="petSpecies" required>
+                <option value="">Select Species</option>
+                <option value="Dog">Dog</option>
+                <option value="Cat">Cat</option>
+                <option value="Bird">Bird</option>
+                <option value="Rabbit">Rabbit</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="petBreed">Breed</label>
+            <input type="text" id="petBreed">
+        </div>
+
+        <div class="form-group">
+            <label for="petAge">Age</label>
+            <input type="number" id="petAge" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="petGender">Gender</label>
+            <select id="petGender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <button type="submit">Add Pet</button>
+
+    </form>
+
+    <p id="petMessage"></p>
+
+    </section>
+
+    <!-- Registered Pets -->
+    <section class="pet-list-section">
+
+    <h2>Registered Pets</h2>
+
+    <div class="search-box">
+        <input type="text" id="petSearch" placeholder="Search pets...">
+    </div>
+
+    <table id="petTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Pet Name</th>
+                <th>Species</th>
+                <th>Breed</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Owner</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="petTableBody"></tbody>
+    </table>
+
+    </section>
+
+    <!-- Edit Pet (hidden) -->
+    <section class="pet-edit-section" id="editPetSection" style="display: none;">
+
+    <h2>Edit Pet</h2>
+
+    <form id="editPetForm">
+
+        <input type="hidden" id="editPetId">
+
+        <div class="form-group">
+            <label for="editPetOwner">Owner</label>
+            <select id="editPetOwner" required>
+                <option value="">Select Owner</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editPetName">Pet Name</label>
+            <input type="text" id="editPetName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editPetSpecies">Species</label>
+            <select id="editPetSpecies" required>
+                <option value="">Select Species</option>
+                <option value="Dog">Dog</option>
+                <option value="Cat">Cat</option>
+                <option value="Bird">Bird</option>
+                <option value="Rabbit">Rabbit</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editPetBreed">Breed</label>
+            <input type="text" id="editPetBreed">
+        </div>
+
+        <div class="form-group">
+            <label for="editPetAge">Age</label>
+            <input type="number" id="editPetAge" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="editPetGender">Gender</label>
+            <select id="editPetGender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <button type="submit">Update Pet</button>
+
+    </form>
+
+    <p id="editPetMessage"></p>
+
+    </section>
+
+    <!-- Treatment Add -->
+    <section class="treatment-section">
+
+    <h2>Add New Treatment</h2>
+
+    <form id="treatmentForm">
+
+        <div class="form-group">
+            <label for="treatmentPet">Pet</label>
+            <select id="treatmentPet" required>
+                <option value="">Select Pet</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="treatmentName">Treatment Name</label>
+            <input type="text" id="treatmentName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="treatmentDescription">Description</label>
+            <textarea id="treatmentDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="treatmentDate">Treatment Date</label>
+            <input type="date" id="treatmentDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="treatmentCost">Cost</label>
+            <input type="number" id="treatmentCost" min="0" step="0.01">
+        </div>
+
+        <button type="submit">Add Treatment</button>
+
+    </form>
+
+    <p id="treatmentMessage"></p>
+
+    </section>
+
+    <!-- Registered Treatments -->
+    <section class="treatment-list-section">
+
+    <h2>Registered Treatments</h2>
+
+    <div class="search-box">
+        <input type="text" id="treatmentSearch" placeholder="Search treatments...">
+    </div>
+
+    <table id="treatmentTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Pet</th>
+                <th>Treatment</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="treatmentTableBody"></tbody>
+    </table>
+
+    </section>
+
+    <!-- Edit Treatment (hidden) -->
+    <section class="treatment-edit-section" id="editTreatmentSection" style="display: none;">
+
+    <h2>Edit Treatment</h2>
+
+    <form id="editTreatmentForm">
+
+        <input type="hidden" id="editTreatmentId">
+
+        <div class="form-group">
+            <label for="editTreatmentPet">Pet</label>
+            <select id="editTreatmentPet" required>
+                <option value="">Select Pet</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editTreatmentName">Treatment Name</label>
+            <input type="text" id="editTreatmentName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editTreatmentDescription">Description</label>
+            <textarea id="editTreatmentDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="editTreatmentDate">Treatment Date</label>
+            <input type="date" id="editTreatmentDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editTreatmentCost">Cost</label>
+            <input type="number" id="editTreatmentCost" min="0" step="0.01">
+        </div>
+
+        <button type="submit">Update Treatment</button>
+
+    </form>
+
+    <p id="editTreatmentMessage"></p>
+
+    </section>
+
+    <!-- Appointment Add -->
+    <section class="appointment-section">
+
+    <h2>Add New Appointment</h2>
+
+    <form id="appointmentForm">
+
+        <div class="form-group">
+            <label for="appointmentPet">Pet</label>
+            <select id="appointmentPet" required>
+                <option value="">Select Pet</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="appointmentDate">Appointment Date</label>
+            <input type="date" id="appointmentDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="appointmentTime">Appointment Time</label>
+            <input type="time" id="appointmentTime" required>
+        </div>
+
+        <div class="form-group">
+            <label for="appointmentReason">Reason</label>
+            <input type="text" id="appointmentReason">
+        </div>
+
+        <div class="form-group">
+            <label for="appointmentStatus">Status</label>
+            <select id="appointmentStatus">
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <button type="submit">Add Appointment</button>
+
+    </form>
+
+    <p id="appointmentMessage"></p>
+
+    </section>
+
+    <!-- Registered Appointments -->
+    <section class="appointment-list-section">
+
+    <h2>Registered Appointments</h2>
+
+    <div class="search-box">
+        <input type="text" id="appointmentSearch" placeholder="Search appointments...">
+    </div>
+
+    <table id="appointmentTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Pet</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="appointmentTableBody"></tbody>
+    </table>
+
+    </section>
+
+    <!-- Edit Appointment (hidden) -->
+    <section class="appointment-edit-section" id="editAppointmentSection" style="display: none;">
+
+    <h2>Edit Appointment</h2>
+
+    <form id="editAppointmentForm">
+
+        <input type="hidden" id="editAppointmentId">
+
+        <div class="form-group">
+            <label for="editAppointmentPet">Pet</label>
+            <select id="editAppointmentPet" required>
+                <option value="">Select Pet</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editAppointmentDate">Appointment Date</label>
+            <input type="date" id="editAppointmentDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editAppointmentTime">Appointment Time</label>
+            <input type="time" id="editAppointmentTime" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editAppointmentReason">Reason</label>
+            <input type="text" id="editAppointmentReason">
+        </div>
+
+        <div class="form-group">
+            <label for="editAppointmentStatus">Status</label>
+            <select id="editAppointmentStatus">
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <button type="submit">Update Appointment</button>
+
+    </form>
+
+    <p id="editAppointmentMessage"></p>
+
+    </section>
+
+    <!-- Vaccination Management -->
+    <section class="vaccination-section">
+    <h2>💉 Vaccination Management</h2>
+    <p>Manage pet vaccination records.</p>
+
+    <form id="vaccinationForm">
+        <div class="form-group">
+            <label for="vaccinationPet">Select Pet</label>
+            <select id="vaccinationPet" required>
+                <option value="">Select Pet</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="vaccineName">Vaccine Name</label>
+            <input type="text" id="vaccineName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="vaccinationDate">Vaccination Date</label>
+            <input type="date" id="vaccinationDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nextDueDate">Next Due Date</label>
+            <input type="date" id="nextDueDate">
+        </div>
+
+        <div class="form-group">
+            <label for="vaccinationNotes">Notes</label>
+            <input type="text" id="vaccinationNotes">
+        </div>
+
+        <button type="submit">Add Vaccination</button>
+    </form>
+
+    <p id="vaccinationMessage"></p>
+
+    </section>
+
+    <!-- Registered Vaccinations -->
+    <section>
+    <h2>Registered Vaccinations</h2>
+
+    <div class="search-box">
+        <input type="text" id="vaccinationSearch" placeholder="Search vaccinations...">
+    </div>
+
+    <div style="overflow-x: auto;">
+        <table id="vaccinationTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Pet</th>
+                    <th>Vaccine</th>
+                    <th>Date</th>
+                    <th>Next Due</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="vaccinationTableBody"></tbody>
+        </table>
+    </div>
+
+    </section>
+
+    <!-- Edit Vaccination (hidden) -->
+    <section id="editVaccinationSection" style="display: none;">
+    <h2>Edit Vaccination</h2>
+
+    <form id="editVaccinationForm">
+        <input type="hidden" id="editVaccinationId">
+
+        <div class="form-group">
+            <label for="editVaccinationPet">Select Pet</label>
+            <select id="editVaccinationPet" required>
+                <option value="">Select Pet</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editVaccineName">Vaccine Name</label>
+            <input type="text" id="editVaccineName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editVaccinationDate">Vaccination Date</label>
+            <input type="date" id="editVaccinationDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editNextDueDate">Next Due Date</label>
+            <input type="date" id="editNextDueDate">
+        </div>
+
+        <div class="form-group">
+            <label for="editVaccinationNotes">Notes</label>
+            <input type="text" id="editVaccinationNotes">
+        </div>
+
+        <button type="submit">Update Vaccination</button>
+        <button type="button" id="cancelVaccinationEdit">Cancel</button>
+    </form>
+
+    <p id="editVaccinationMessage"></p>
+
+    </section>
+
+    <!-- Payment Management -->
+    <section id="paymentSection">
+    <h2>💳 Payment Management</h2>
+    <p>Manage veterinary bills and payment records.</p>
+
+    <form id="paymentForm">
+        <div class="form-group">
+            <label for="paymentOwner">Pet Owner</label>
+            <select id="paymentOwner" required>
+                <option value="">Select Owner</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="paymentAmount">Amount (LKR)</label>
+            <input type="number" id="paymentAmount" min="0.01" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="paymentMethod">Payment Method</label>
+            <select id="paymentMethod" required>
+                <option value="">Select Method</option>
+                <option value="Cash">Cash</option>
+                <option value="Card">Card (Mock)</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="paymentStatus">Payment Status</label>
+            <select id="paymentStatus" required>
+                <option value="Pending">Pending</option>
+                <option value="Paid">Paid</option>
+                <option value="Failed">Failed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="paymentDate">Payment Date</label>
+            <input type="date" id="paymentDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="paymentDescription">Description</label>
+            <input type="text" id="paymentDescription">
+        </div>
+
+        <button type="submit">Save Payment</button>
+    </form>
+
+    <p id="paymentMessage"></p>
+
+    </section>
+
+    <!-- Payment Records -->
+    <section>
+    <h2>Payment Records</h2>
+
+    <div class="search-box">
+        <input type="text" id="paymentSearch" placeholder="Search payment records...">
+    </div>
+
+    <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Owner</th>
+                    <th>Amount (LKR)</th>
+                    <th>Method</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="paymentTableBody"></tbody>
+        </table>
+    </div>
+
+    </section>
+
+    <!-- Edit Payment (hidden) -->
+    <section id="editPaymentSection" style="display:none;">
+    <h2>Edit Payment</h2>
+
+    <form id="editPaymentForm">
+        <input type="hidden" id="editPaymentId">
+
+        <div class="form-group">
+            <label for="editPaymentOwner">Pet Owner</label>
+            <select id="editPaymentOwner" required></select>
+        </div>
+
+        <div class="form-group">
+            <label for="editPaymentAmount">Amount (LKR)</label>
+            <input type="number" id="editPaymentAmount" min="0.01" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editPaymentMethod">Payment Method</label>
+            <select id="editPaymentMethod" required>
+                <option value="Cash">Cash</option>
+                <option value="Card">Card (Mock)</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editPaymentStatus">Payment Status</label>
+            <select id="editPaymentStatus" required>
+                <option value="Pending">Pending</option>
+                <option value="Paid">Paid</option>
+                <option value="Failed">Failed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editPaymentDate">Payment Date</label>
+            <input type="date" id="editPaymentDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editPaymentDescription">Description</label>
+            <input type="text" id="editPaymentDescription">
+        </div>
+
+        <button type="submit">Update Payment</button>
+        <button type="button" id="cancelPaymentEdit">Cancel</button>
+    </form>
+
+    <p id="editPaymentMessage"></p>
+
+    </section>
+
+</main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+
+        // Check login - if not logged in, redirect to login page
+        const loggedInUser = sessionStorage.getItem("loggedInUser");
+
+        if (!loggedInUser) {
+            window.location.href = "/login.html";
+        }
+
+        // Logout button
+        document.getElementById("logoutBtn").addEventListener(
+            "click",
+            async function () {
+
+                try {
+
+                    await fetch("/api/users/logout", {
+                        method: "POST"
+                    });
+
+                } catch (error) {
+
+                    console.error("Logout error:", error);
+
+                }
+
+                sessionStorage.removeItem("loggedInUser");
+
+                window.location.href = "/login.html";
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

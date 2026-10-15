@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Pet Care Veterinary</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(160deg, #0d0820 0%, #1a1035 50%, #0d0820 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Branding */
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .brand .logo {
+            font-size: 52px;
+            margin-bottom: 12px;
+        }
+
+        .brand h1 {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: white;
+        }
+
+        .brand p {
+            font-size: 13px;
+            color: #a895e0;
+            margin-top: 6px;
+        }
+
+        /* Login Card */
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            padding: 40px 35px;
+            width: 390px;
+            border-radius: 18px;
+            border: 1px solid rgba(180, 150, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .login-card h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 6px;
+            font-size: 22px;
+        }
+
+        .login-card .subtitle {
+            text-align: center;
+            color: #a895e0;
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #c9b8ff;
+            margin-bottom: 7px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper .icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 11px 12px 11px 38px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 14px;
+            color: #e8e0ff;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group input:focus {
+            border-color: #7c5cfc;
+            box-shadow: 0 0 0 3px rgba(124, 92, 252, 0.25);
+        }
+
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #5b3cc4, #3a1f8a);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.2s, transform 0.1s;
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Message */
+        #message {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 13px;
+            min-height: 20px;
+            color: #f48fb1;
+        }
+
+        #message.success {
+            color: #81c784;
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 22px 0;
+        }
+
+        /* Register link */
+        .register-link {
+            text-align: center;
+            font-size: 13px;
+            color: #9985c8;
+        }
+
+        .register-link a {
+            color: #b39dff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 28px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 420px) {
+            .login-card {
+                width: 92%;
+                padding: 30px 22px;
+            }
+
+            .brand h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Branding -->
+    <div class="brand">
+        <div class="logo">🐾</div>
+        <h1>Pet Care Veterinary</h1>
+        <p>Pet Health & Veterinary Management System</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to your admin account</p>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <span class="icon">👤</span>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <span class="icon">🔒</span>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login →
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <hr class="divider">
+
+        <p class="register-link">
+            New admin?
+            <a href="/register.html">Create account</a>
+        </p>
+
+    </div>
+
+    <!-- Footer -->
+    <p class="footer">© 2026 Pet Care Veterinary System</p>
+
+
+    <script>
+
+        document.getElementById("loginForm").addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+                const username =
+                    document.getElementById("username").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+                const message =
+                    document.getElementById("message");
+
+                message.textContent = "Logging in...";
+                message.className = "";
+
+                try {
+
+                    const response = await fetch("/api/users/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+
+                        message.textContent = "Login successful! Redirecting...";
+                        message.className = "success";
+
+                        sessionStorage.setItem(
+                            "loggedInUser",
+                            data.username
+                        );
+
+                        setTimeout(function () {
+                            window.location.href = "/";
+                        }, 1000);
+
+                    } else {
+
+                        message.textContent = data.message || "Invalid credentials.";
+                        message.className = "";
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+                    message.textContent = "Login failed. Please try again.";
+                    message.className = "";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

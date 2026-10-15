@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Medical History Report - Pet Care Veterinary</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(160deg, #0d0820 0%, #1a1035 50%, #0d0820 100%);
+            background-attachment: fixed;
+            color: #e8e0ff;
+            min-height: 100vh;
+        }
+
+        /* ─── HEADER ─── */
+        header {
+            background: rgba(30, 15, 70, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(91, 60, 196, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        header div {
+            text-align: left;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 3px;
+            color: white;
+        }
+
+        header p {
+            font-size: 12px;
+            color: #c9b8ff;
+            opacity: 0.85;
+        }
+
+        .back-btn {
+            background: rgba(91, 60, 196, 0.4);
+            color: white;
+            border: 1.5px solid rgba(180, 150, 255, 0.5);
+            padding: 9px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: rgba(91, 60, 196, 0.7);
+        }
+
+        /* ─── MAIN ─── */
+        main {
+            width: 90%;
+            max-width: 900px;
+            margin: 35px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ─── SEARCH CARD ─── */
+        .search-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(180, 150, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-card h2 {
+            color: #c9b8ff;
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        .search-card p {
+            color: #9985c8;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .search-area {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-area input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 14px;
+            color: #e8e0ff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-area input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .search-area input:focus {
+            border-color: #7c5cfc;
+            box-shadow: 0 0 0 3px rgba(124, 92, 252, 0.2);
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #5b3cc4, #3a1f8a);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: opacity 0.2s, transform 0.1s;
+            white-space: nowrap;
+        }
+
+        .generate-btn:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        #message {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #f48fb1;
+            min-height: 18px;
+        }
+
+        #message.success {
+            color: #81c784;
+        }
+
+        /* ─── REPORT CARD ─── */
+        .report-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(180, 150, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ─── PET INFO ─── */
+        .pet-info {
+            background: rgba(91, 60, 196, 0.15);
+            border: 1px solid rgba(180, 150, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .pet-info h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 4px;
+            grid-column: 1 / -1;
+        }
+
+        .info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #a895e0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ─── TREATMENT TABLE ─── */
+        .report-card h3 {
+            color: #c9b8ff;
+            font-size: 17px;
+            margin-bottom: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background: rgba(91, 60, 196, 0.6);
+            color: #e8e0ff;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+
+        tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        tr:hover {
+            background: rgba(91, 60, 196, 0.15);
+        }
+
+        td {
+            color: #d4c8ff;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #9985c8;
+            padding: 30px;
+            font-size: 14px;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 18px 20px;
+            }
+
+            header div {
+                text-align: center;
+            }
+
+            main {
+                width: 95%;
+            }
+
+            .search-area {
+                flex-direction: column;
+            }
+
+            .generate-btn {
+                width: 100%;
+            }
+
+            .pet-info {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>🐾 Pet Care Veterinary</h1>
+            <p>Pet Medical History Report</p>
+        </div>
+        <a href="/" class="back-btn">← Back to Dashboard</a>
+    </header>
+
+    <!-- Main -->
+    <main>
+
+        <!-- Search Card -->
+        <div class="search-card">
+            <h2>📋 Medical History Report</h2>
+            <p>Enter a Pet ID to generate the complete medical history report.</p>
+
+            <div class="search-area">
+                <input
+                    type="number"
+                    id="petId"
+                    placeholder="Enter Pet ID (e.g. 1)"
+                    min="1"
+                >
+                <button class="generate-btn" id="generateReport">
+                    Generate Report →
+                </button>
+            </div>
+
+            <p id="message"></p>
+        </div>
+
+        <!-- Report Container -->
+        <div id="reportContainer"></div>
+
+    </main>
+
+
+    <script>
+
+        // Login check
+        const loggedInUser = sessionStorage.getItem("loggedInUser");
+
+        if (!loggedInUser) {
+            window.location.href = "/login.html";
+        }
+
+        document.getElementById("generateReport").addEventListener(
+            "click",
+            async function () {
+
+                const petId = document.getElementById("petId").value;
+                const message = document.getElementById("message");
+                const reportContainer = document.getElementById("reportContainer");
+
+                if (petId === "") {
+                    message.textContent = "Please enter a Pet ID.";
+                    message.className = "";
+                    reportContainer.innerHTML = "";
+                    return;
+                }
+
+                message.textContent = "Loading report...";
+                message.className = "success";
+                reportContainer.innerHTML = "";
+
+                try {
+
+                    const response = await fetch("/api/reports/pet/" + petId);
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        message.textContent = data.message || "Pet not found.";
+                        message.className = "";
+                        return;
+                    }
+
+                    message.textContent = data.message;
+                    message.className = "success";
+
+                    const report = data.report;
+
+                    if (report.length === 0) {
+                        reportContainer.innerHTML = `
+                            <div class="report-card">
+                                <p class="no-data">No medical history found for this pet.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    const pet = report[0];
+
+                    // Build treatment rows
+                    let treatmentRows = "";
+
+                    report.forEach(function (item) {
+                        const date = item.treatment_date
+                            ? String(item.treatment_date).substring(0, 10)
+                            : "-";
+
+                        const cost = item.cost
+                            ? "LKR " + Number(item.cost).toFixed(2)
+                            : "-";
+
+                        treatmentRows += `
+                            <tr>
+                                <td>${item.treatment_name || "No treatment"}</td>
+                                <td>${item.description || "-"}</td>
+                                <td>${date}</td>
+                                <td>${cost}</td>
+                            </tr>
+                        `;
+                    });
+
+                    reportContainer.innerHTML = `
+                        <div class="report-card">
+
+                            <div class="pet-info">
+                                <h3>🐾 ${pet.pet_name}</h3>
+
+                                <div class="info-row">
+                                    <span class="info-label">Pet ID</span>
+                                    <span class="info-value">#${pet.pet_id}</span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">Species</span>
+                                    <span class="info-value">${pet.species}</span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">Breed</span>
+                                    <span class="info-value">${pet.breed || "-"}</span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">Owner</span>
+                                    <span class="info-value">${pet.owner_name}</span>
+                                </div>
+                            </div>
+
+                            <h3>💊 Medical Treatment History</h3>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Treatment</th>
+                                        <th>Description</th>
+                                        <th>Date</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${treatmentRows}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    `;
+
+                } catch (error) {
+
+                    console.error(error);
+                    message.textContent = "Failed to generate report. Please try again.";
+                    message.className = "";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
